@@ -14,3 +14,10 @@ age = 55
 message = "내 나이는 " + str(age) + "살" # "내 나이는 55살"
 
 pi = int(3.14) # pi = 3 (정수형. 소수점 이하 버림)
+
+user = {"name": "Tom", "age": 20}
+user["name"]
+print(user.get("age"))
+print(user["name"])
+
+print(user)
