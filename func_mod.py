@@ -22,3 +22,14 @@ import math
 
 root = math.sqrt(25)
 print(root)
+
+students = [('Alice', 30), ('Bob', 25), ('Charlie', 35)]
+
+sorted_by_age = sorted(students, key=lambda student: student[1])
+
+print(sorted_by_age)
+
+numbers = [1, 2, 3, 4, 5, 6]
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+
+print(even_numbers)

@@ -431,7 +431,7 @@ def f(*args, **kwargs):
 </details>
 
 <details>
-<summary> 모듈(Module) </summary>
+<summary> 모듈 (Module) </summary>
 
 <br/>
 
@@ -490,6 +490,126 @@ print(root)
 <br/>
 
 </details>
+
+<details>
+<summary> 람다(Lambda) </summary>
+
+<br/>
+
+### 1. 익명 함수
+
+일반적인 함수는 `def` 키워드로 정의하고 이름을 붙이지만, 람다 함수는 이름이 없음
+
+이 때문에 **익명 함수** 라고 불림
+
+### 2. 구조적 특징
+
+- 단일 표현식
+
+    -  **람다 함수** 는 오직 하나의 **표현식(expression)** 만을 포함해야 하며, 이 표현식의 결과가 자동으로 반환됌
+    
+    - `if`, `for`, `while` 같은 **문장(statement)** 은 사용할 수 없음
+
+- 간결성
+
+### 3. 문법 (Syntax)
+
+```py
+lambda 인자1, 인자2, ...: 표현식
+```
+
+- `lambda` : 람다 함수를 정의하는 키워드 (일반 함수의 def 역할)
+
+- 인자 : 함수가 받을 입력 값 (0개 이상)
+
+- `:` : 인자와 표현식을 구분하는 콜론
+
+- 표현식 : 함수가 수행할 작업 및 반환 값
+
+### 4. 람다 함수 사용 예시
+
+**일반 함수와 람다 함수 비교**
+
+```py
+# 일반 함수
+def add(x, y):
+    return x + y
+result = add(3, 5)
+```
+
+```py
+# 람다 ex
+add_lambda = lambda x, y: x + y
+
+result = add_lambda(3, 5)
+```
+
+**인자 없는 람다**
+
+```py
+get_pi = lambda: 3.14159
+print(get_pi())
+```
+
+1. `sorted()` 에서 사용
+
+    `sorted()` 함수는 리스트를 정렬할 때, 정렬의 기준(key)을 지정하기 위해 함수를 인자로 받음
+
+    ```py
+    # 이름과 나이를 가진 튜플 리스트
+    students = [('Alice', 30), ('Bob', 25), ('Charlie', 35)]
+
+    # 나이(튜플의 두 번째 요소, 인덱스 1)를 기준으로 정렬
+    sorted_by_age = sorted(students, key=lambda student: student[1])
+
+    print(sorted_by_age)
+    # [('Bob', 25), ('Alice', 30), ('Charlie', 35)]
+    ```
+
+    ---
+
+2. `filter()` 에서 사용
+
+    `filter()` 함수는 시퀀스(리스트 등)에서 특정 조건이 `True` 인 요소만 필터링하여 반환
+
+    ```py
+    numbers = [1, 2, 3, 4, 5, 6]
+
+    # 짝수만 걸러내는 람다 함수
+    even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+
+    print(even_numbers)
+    # [2, 4, 6]
+    ```
+
+    ---
+
+3. `map()`에서 사용
+
+    `map()` 함수는 시퀀스의 모든 요소에 대해 특정 함수를 적용하고 그 결과를 반환
+
+    ```py
+    numbers = [1, 2, 3, 4]
+
+    # 모든 요소에 10을 곱하는 람다 함수
+    multiplied = list(map(lambda x: x * 10, numbers))
+
+    print(multiplied)
+    # [10, 20, 30, 40]
+    ```
+
+    ----
+
+### 5. 람다 함수의 한계
+
+- **복잡한 로직 불가** : 여러 줄의 코드나 복잡한 조건/반복문이 필요한 작업에는 사용할 수 없음
+
+- 가독성: 너무 복잡한 람다 표현식은 오히려 일반 `def` 함수보다 읽기 어려울 수 있음
+
+<br/>
+
+</details>
+
 
 ## 참고
 
