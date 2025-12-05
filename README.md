@@ -1,6 +1,6 @@
 # Python_Basic
 
-![Python_img](https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/thumb-course-phthon-basic.jpg)
+![Python_img](https://64.media.tumblr.com/7330f4e11bdb6cf9417beb5d4891e9a8/23e4c4bebcda06a7-ab/s500x750/31a75493e08ec238b99a56e8939cb8f20a328745.gifv)
 
 기초 문법 및 문제풀이
 
