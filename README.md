@@ -610,7 +610,132 @@ print(get_pi())
 
 </details>
 
+## 클래스
+
+<details>
+<summary> 클래스(Class) </summary>
+
+<br/>
+
+### 1. Class 란?
+
+> 객체(Object)를 생성하기 위한 설계도(Template)
+
+```
+클래스 = 설계도
+객체 = 설계도로 만든 실제 물체(Instance)
+```
+
+- **설계도** : 객체라는 실체를 만들기 위한 청사진 역할
+
+- **속성(Attribute)** : 객체가 가지는 데이터(변수)를 정 (ex: 자동차의 색상, 모델명)
+
+- **메서드(Method)** : 객체가 수행할 수 있는 기능(함수)을 정의 (ex: 자동차의 '가속하다', '정지하다')
+
+- **객체(Object)/인스턴스(Instance)** : 클래스라는 설계도로부터 실제로 만들어진 각각의 개별적인 실체 (ex: '내 자동차', '네 자동차')
+
+- OOP 핵심: 파이썬은 객체 지향 프로그래밍(OOP) 언어이며, 클래스는 OOP의 핵심 요소
+
+### 2. 클래스 기본 문법
+
+```py
+class ClassName:
+    # 생성자
+    def __init__(self, parameter1, parameter2):
+        self.parameter1 = parameter1
+        self.parameter2 = parameter2
+
+    # 메서드
+    def method(self):
+        print(self.parameter1, self.parameter2)
+```
+
+```py
+# 객체 생성
+obj = ClassName(value1, value2)
+```
+
+- `__init__`(생성자)
+
+    ```py
+    def __init__(self, name):
+    self.name = name
+    ```
+
+    객체가 만들어질 때 자동 실행
+
+    ---
+
+- `__del__`(소멸자)
+
+    ```py
+    # 거의 안쓴다 함
+    def __del__(self):
+    print("destroyed")
+    ```
+
+    객체가 사라질 때 자동 실행
+
+    ---
+
+### `self`
+
+```py
+self.x = x
+```
+
+- 자기 자신 객체를 가리킴
+
+- 인스턴스 변수에 접근할 때 항상 `self` 사용
+
+### Magic / Dunder 메서드
+
+| 메서드           | 의미             |
+| ------------- | -------------- |
+| `__init__`    | 생성자            |
+| `__str__`     | `print()` 출력 문자열 |
+| `__len__`     | `len()` 정의       |
+| `__add__`     | `+` 연산자 재정의      |
+| `__getitem__` | 인덱싱 동작         |
+| `__eq__`      | `==` 동작          |
+
+
+### 3. 실제 적용
+
+```py
+class Person:
+    def __init__(self, name, age): # 1
+        self.name = name         # 2
+        self.age = age
+
+    def introduce(self): # 인스턴스 메서드
+        print(f"안녕하세요, 저는 {self.name}이고 {self.age}살입니다.") # 3
+
+p1 = Person("김철수", 34)
+p2 = Person("박영희", 93)
+```
+
+1. 생성자: 객체가 만들어질 때 호출됨
+
+2. `self.name`은 이 객체만의 `name` 속성
+
+3. `self`를 통해 `name`과 `age` 접근
+
+    - **자동 전달**
+
+        `class Person:`에서 `def introduce(self):`와 같이 메서드를 정의할 때 `self`를 포함하지만,
+        
+        `p = Person();` `p.introduce()`처럼 호출할 때는 `self`를 제외하고 전달
+        
+        파이썬이 자동으로 해당 객체를 `self`에 넣어줌
+
+<br/>
+
+</details>
+
 
 ## 참고
 
 - [위키독스](https://wikidocs.net/)
+
+- [유튜브 - 입문자를 위한 파이썬 기초 #24 클래스의 self 그리고 생성자(유노코딩)](https://www.youtube.com/watch?v=m0NW6DABz-w&t=76s)
