@@ -492,7 +492,7 @@ print(root)
 </details>
 
 <details>
-<summary> 람다(Lambda) </summary>
+<summary> 람다 (Lambda) </summary>
 
 <br/>
 
@@ -613,7 +613,7 @@ print(get_pi())
 ## 클래스
 
 <details>
-<summary> 클래스(Class) </summary>
+<summary> 클래스 (Class) </summary>
 
 <br/>
 
@@ -733,9 +733,166 @@ p2 = Person("박영희", 93)
 
 </details>
 
+<details>
+<summary> 메서드 (Method) </summary>
+
+<br/>
+
+#### 1. 인스턴스 메서드 (Instance Method)
+
+가장 일반적인 메서드, 객체(인스턴스)가 사용하는 메서드
+
+```py
+class Dog:
+    def __init__(self, name):
+        self.name = name
+    
+    def bark(self): # self를 받음
+        print(f"{self.name} says 멍멍!")
+```
+
+- `self` (객체 자신)를 받으며, 이를 통해 인스턴스 변수와 다른 인스턴스 메서드에 접근
+
+- 특정 객체의 상태(데이터)를 조작하거나 해당 객체에 특화된 기능을 수행할 때 사용
+
+#### 2. 클래스 메서드 (Class Method)
+
+클래스 자체에 바인딩된 메서드, 클래스 변수에 접근
+
+```py
+class Dog:
+    # ...
+    
+    species = "Canis familiaris" # 클래스 변수
+    
+    @classmethod
+    def get_species(cls): # cls를 받음
+        return cls.species
+
+print(Dog.get_species())
+# Canis familiaris
+```
+
+- `cls`(클래스 자체)를 받으며, `@classmethod` 데코레이터를 사용
+
+- 주로 클래스 변수를 다루거나, 팩토리 메서드(대안 생성자) 등으로 사용
+
+#### 3. 정적 메서드 (Static Method)
+
+클래스나 인스턴스와 관련 없이 독립적으로 동작하는 메서드
+
+```py
+class Calculator:
+    @staticmethod
+    def add(x, y):
+        return x + y
+
+print(Calculator.add(10, 5))
+```
+
+- `self` 나 `cls` 를 받지 않음
+
+-  `@staticmethod` 데코레이터를 사용
+
+- 주로 클래스와 관련은 있지만 인스턴스 상태에 의존하지 않는 유틸리티 함수
+
+<br/>
+
+</details>
+
+<details>
+<summary> 프로퍼티 (Getter / Setter) </summary>
+
+<br/>
+
+#### 1. 클래스에서 프로퍼티(Property)
+
+**getter(속성 값 읽기)** 와 **setter(속성 값 설정)** 메서드를 마치 일반 속성처럼 접근 가능하게 만드는 기능
+
+- **Getter (읽기)**
+    
+    - 속성 값을 반환하는 메서드
+    
+    - `@property` 데코레이터를 붙이며, 메서드 이름은 속성 이름과 같게 만듬
+
+- **Setter (쓰기)**
+
+    - 속성 값을 설정하는 메서드
+    
+    - `@속성명.setter` 데코레이터를 붙이며, 마찬가지로 이름은 속성 이름과 동일하게 작성함
+
+    - **Private 속성**
+    
+    - 외부에서 직접 접근을 막기 위해 이름 앞에 `_`  또는 `__`을 붙여 사용
+
+```py
+class Person:
+    count = 0
+
+    # ...
+
+    @property # getter for 'name'
+    def name(self):
+        print("Getter for name called.")
+        return self._name
+
+    @name.setter # setter for 'name'
+    def name(self, new_name):
+        print(f"Setter for name called with: {new_name}")
+        if len(new_name) > 0:
+            self._name = new_name
+        else:
+            print("이름은 비어있을 수 없습니다.")
+
+    @property
+    def age(self):
+        return self._age
+
+    @age.setter
+    def age(self, value):
+        if isinstance(value, int) and 0 <= value <= 120:
+            self._age = value
+        else:
+            print("잘못된 나이 값입니다.")
+```
+
+```py
+# 활용 ex
+p = Person("Alice", 30)
+
+# getter 호출 (속성 접근처럼)
+print(p.name) # Getter for name called. -> Alice
+print(p.age)  # 30
+
+# setter 호출 (속성 할당처럼)
+p.name = "Bob" # Setter for name called with: Bob
+print(p.name)  # Getter for name called. -> Bob
+
+p.age = 150    # 잘못된 나이 값입니다.
+print(p.age)   #  30
+
+p.age = 25 
+print(p.age)
+```
+
+#### 2. 장점
+
+- **캡슐화 및 제어** : 데이터의 유효성을 검사하거나 부가적인 로직을 추가하여 데이터를 보호하고 제어할 수 있음
+
+- **코드 일관성 유지** : 클래스 사용자 입장에서는 일반 속성처럼 접근하므로, 기존 코드를 수정하지 않고 내부 로직을 변경 가능 (코드의 호환성 유지)
+
+- **가독성 향상** : `get_name()` 대신 `p.name` 처럼 간결하게 사용할 수 있어 코드가 깔끔해짐
+
+<br/>
+
+
+</details>
+
 
 ## 참고
 
 - [위키독스](https://wikidocs.net/)
 
 - [유튜브 - 입문자를 위한 파이썬 기초 #24 클래스의 self 그리고 생성자(유노코딩)](https://www.youtube.com/watch?v=m0NW6DABz-w&t=76s)
+
+- [블로그 참고 - 객체지향에서 필수 개념인 Property, Getter, Setter 간단히 알아보기(nyyang)](https://nyyang.tistory.com/79#:~:text=%ED%82%A4%EC%9B%8C%EB%93%9C%20:%20%EC%9D%80%EB%8B%89%ED%99%94%20(%EA%B0%9D%EC%B2%B4%EC%9D%98%20%EC%86%8D%EC%84%B1%EA%B3%BC%20%ED%96%89%EC%9C%84%EB%A5%BC%20%ED%95%98%EB%82%98%EB%A1%9C,%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC%20%EC%9D%BD%EC%96%B4%EC%A3%BC%EB%8A%94%20%EB%A9%94%EC%84%9C%EB%93%9C%20setter%20:%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC%20%EB%B3%80%EA%B2%BD%ED%95%B4%EC%A3%BC%EB%8A%94))
