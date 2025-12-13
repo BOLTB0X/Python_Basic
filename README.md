@@ -888,6 +888,194 @@ print(p.age)
 
 </details>
 
+<details>
+<summary> 상속 (Inheritance) </summary>
+
+<br/>
+
+
+#### 1. 상속(Inheritance) 이란
+
+> 기존 클래스(부모 클래스)의 속성과 메서드를 물려받아<br/>새로운 클래스(자식 클래스)를 만드는 것
+
+하나의 클래스(자식 클래스)가 다른 클래스(부모 클래스)의 속성(변수)과 메서드(기능)를 물려받아 재사용하고,
+
+필요에 따라 확장하거나 수정하여 새로운 클래스를 만드는 **OOP의 핵심 개념**
+
+```py
+class Parent:
+    def hello(self):
+        print("Hello from Parent")
+
+class Child(Parent):
+    pass
+```
+
+```py
+c = Child()
+c.hello()   # Parent의 메서드 사용 가능
+```
+
+
+- **기능 재사용** : 부모 클래스에 정의된 코드를 다시 작성하지 않고 그대로 활용할 수 있음
+
+- **코드 확장** : 물려받은 기능 외에 자식 클래스만의 새로운 속성이나 메서드를 추가할 수 있음
+
+- **코드 중복 감소** : 유사한 기능을 하는 여러 클래스를 만들 때 중복되는 부분을 부모 클래스로 통합할 수 있음
+
+- **계층 구조 형성** : 부모-자식 관계를 통해 클래스 간의 논리적인 계층 구조를 만드는 것
+
+#### 2. 주요 특징
+
+1. **생성자** (`__init__`) **상속** : 부모 생성자는 자동 호출되지 않음
+
+    ```py
+    class Parent:
+        def __init__(self):
+            print("Parent init")
+
+    class Child(Parent):
+        def __init__(self):
+            print("Child init")
+
+    Child()
+    ```
+
+    ```
+    Child init # 부모 생성자가 실행되지 않음
+    ```
+
+    ---
+
+2. `super()` 로 부모 생성자 호출
+
+    ```py
+    class Child(Parent):
+        def __init__(self):
+            super().__init__()
+            print("Child init")
+    ```
+
+    ```
+    Parent init
+    Child init
+    ```
+
+    ---
+
+3. **메서드 오버라이딩 (Overriding)** : 자식 클래스에서 부모 메서드를 재정의
+
+    ```py
+    class Parent:
+        def greet(self):
+            print("Hello")
+
+    class Child(Parent):
+        def greet(self):
+            print("Hi")
+    ```
+
+    ```py
+    Child().greet()  # Hi
+    ```
+
+    ---
+
+4. ex
+
+    ```py
+    # 부모 클래스 (Parent Class)
+    class Animal:
+        def __init__(self, name):
+            self.name = name
+        def speak(self):
+            return f"{self.name}이 소리를 냅니다."
+
+    # 자식 클래스 (Child Class)가 Animal을 상속받음
+    class Dog(Animal):
+        def bark(self): # Dog 클래스만의 새로운 메서드
+            return f"{self.name}이 멍멍 짖습니다."
+    ```
+
+    ```py
+    # 사용 ex
+    my_dog = Dog("바둑이")
+    print(my_dog.name)    # 부모 클래스에서 물려받은 속성
+    print(my_dog.speak()) # 부모 클래스에서 물려받은 메서드
+    print(my_dog.bark())  # 자식 클래스에서 추가된 메서드
+    ```
+
+#### 4. 다중 상속 (Multiple Inheritance)
+
+하나의 자식 클래스가 두 개 이상의 부모 클래스로부터 속성과 메서드를 함께 물려받는 기능
+
+```py
+lass Parent1:
+    def method1(self):
+        return "Parent1의 메서드1"
+
+class Parent2:
+    def method2(self):
+        return "Parent2의 메서드2"
+
+class Child(Parent1, Parent2): # 괄호 안에 부모 클래스들을 콤마로 구분하여 나열
+    def child_method(self):
+        return "Child 클래스의 메서드"
+```
+```py
+# 사용 ex
+child_obj = Child()
+print(child_obj.method1()) # Parent1의 메서드 호출
+print(child_obj.method2()) # Parent2의 메서드 호출
+print(child_obj.child_method()) # Child 클래스의 메서드 호출
+```
+
+만약 부모 클래스들에 같은 이름의 메서드가 있을 경우,
+
+파이썬은 **MRO(Method Resolution Order)** 라는 규칙에 따라 어떤 메서드를 실행할지 결정
+
+이 순서는 클래스 정의 시 나열된 순서를 따름
+
+```py
+class ParentA:
+    def common_method(self):
+        return "나는 ParentA야"
+
+class ParentB:
+    def common_method(self):
+        return "나는 ParentB야"
+
+# ParentA를 먼저 상속 (ParentA의 메서드가 우선)
+class Child(ParentA, ParentB):
+    pass
+
+child_a = Child()
+print(child_a.common_method()) # 출력: 나는 ParentA야
+
+# ParentB를 먼저 상속 (ParentB의 메서드가 우선)
+class Child(ParentB, ParentA):
+    pass
+
+child_b = Child()
+print(child_b.common_method()) # 나는 ParentB야
+```
+
+#### `isinstance` & `issubclass` 이란
+
+```py
+isinstance(obj, Class)
+issubclass(Child, Parent)
+```
+
+- `isinstance` : 객체가 특정 클래스(또는 그 자식 클래스)의 인스턴스인지 확인
+
+- `issubclass` : 클래스가 다른 클래스의 자식 클래스(서브클래스)인지 확인하는 파이썬 내장 함수로, 객체의 타입이나 상속 관계를 검사할 때 사용
+
+<br/>
+
+</details>
+
+
 
 ## 참고
 
